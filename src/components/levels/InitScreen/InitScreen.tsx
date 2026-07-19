@@ -13,8 +13,9 @@ const CARDS = [
   { id: 3, era: 'THE BUILD', subtitle: 'Age 20. Real projects.', targetLevel: 4, image: '/assets/ai-pin-architecture.jpeg' },
 ];
 
-// Each card is spaced 1200px apart on the conceptual scroll track
-const CARD_STRIDE = 1200;
+// Mobile users shouldn't have to drag 1200px. Reduce stride to 500px for snappy swiping on small screens.
+const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+const CARD_STRIDE = isMobile ? 500 : 1200;
 
 const CarouselCard: React.FC<{
   card: typeof CARDS[0];

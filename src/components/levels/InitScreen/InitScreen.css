@@ -40,6 +40,8 @@
 .init-screen__options {
   display: flex;
   gap: 60px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .init-screen__option {
@@ -61,12 +63,30 @@
   font-size: 1.5rem;
   font-weight: bold;
   letter-spacing: 0.1em;
+  white-space: nowrap;
 }
 
 .init-screen__option-subtitle {
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.5);
   font-family: 'Inter', sans-serif;
+}
+
+@media (max-width: 768px) {
+  .init-screen__content {
+    gap: 40px;
+  }
+  .init-screen__options {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .init-screen__option {
+    padding: 20px;
+  }
+  .init-screen__option-title {
+    font-size: 1.2rem;
+    white-space: nowrap;
+  }
 }
 
 /* ─── Story Mode Carousel ────────────────────────────────────────────────── */
@@ -141,6 +161,7 @@
   z-index: 5;
   pointer-events: all;
   cursor: grab;
+  touch-action: none; /* Prevents mobile browser from hijacking the swipe gestures */
 }
 
 .init-screen__carousel-inverse {
@@ -271,6 +292,18 @@
   }
   100% {
     box-shadow: 0 0 0 200vw rgba(255, 255, 255, 0), inset 0 0 100vw rgba(5, 5, 5, 1);
+  }
+}
+
+@media (max-width: 768px) {
+  .init-screen__card {
+    width: 340px;
+    height: 217px;
+    margin-left: -170px;
+    margin-top: -108px;
+  }
+  .init-screen__card-title {
+    font-size: 1.8rem;
   }
 }
 

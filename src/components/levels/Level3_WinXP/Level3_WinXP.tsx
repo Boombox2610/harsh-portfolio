@@ -725,7 +725,7 @@ const Level3_WinXP: React.FC = () => {
                 {win.id === 'gdg' && <GDGWindow onClose={() => closeWindow('gdg')} />}
                 {win.id === 'certs' && <CertsWindow onClose={() => closeWindow('certs')} />}
                 {win.id === 'cloudmum' && <CloudMumWindow onClose={() => closeWindow('cloudmum')} />}
-                {win.id === 'whatcode' && <WhatcodeWindow onClose={() => closeWindow('whatcode')} />}
+                {win.id === 'whatcode' && <WhatcodeWindow />}
                 {win.id === 'installer' && (
                   <InstallerWindow
                     onNext={triggerShatter}

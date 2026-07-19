@@ -1,0 +1,95 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   KEYFRAME ANIMATIONS  —  harsh-portfolio
+───────────────────────────────────────────────────────────────────────────── */
+
+/* Terminal blinking cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* CRT rapid flicker — horizontal noise bands */
+@keyframes crt-flicker {
+  0%   { opacity: 1;   filter: brightness(1)   contrast(1); }
+  8%   { opacity: 0.7; filter: brightness(3)   contrast(1) saturate(0); }
+  12%  { opacity: 1;   filter: brightness(0.5) contrast(2); }
+  20%  { opacity: 0.9; filter: brightness(1)   contrast(1); }
+  25%  { opacity: 0.3; filter: brightness(4)   saturate(0); }
+  30%  { opacity: 1;   filter: brightness(1)   contrast(1); }
+  60%  { opacity: 1;   filter: brightness(1)   contrast(1); }
+  70%  { opacity: 0.8; filter: brightness(2)   saturate(0); }
+  80%  { opacity: 0;   filter: brightness(5)   saturate(0); }
+  85%  { opacity: 1;   filter: brightness(1)   contrast(1); }
+  92%  { opacity: 0;   filter: brightness(0); }
+  100% { opacity: 0;   filter: brightness(0); }
+}
+
+/* CRT horizontal-collapse — screen dying into a white line then black */
+@keyframes crt-collapse {
+  0%   { transform: scaleY(1)    scaleX(1);    opacity: 1; filter: brightness(1); }
+  30%  { transform: scaleY(0.08) scaleX(1.05); opacity: 1; filter: brightness(5) saturate(0); }
+  50%  { transform: scaleY(0.02) scaleX(1.1);  opacity: 1; filter: brightness(8) saturate(0); }
+  70%  { transform: scaleY(0)    scaleX(1.2);  opacity: 0; filter: brightness(0); }
+  100% { transform: scaleY(0)    scaleX(1.2);  opacity: 0; filter: brightness(0); }
+}
+
+/* BIOS boot scroll text */
+@keyframes scroll-up {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-100%); }
+}
+
+/* Fade in from below */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Matrix rain character drop */
+@keyframes matrix-drop {
+  0%   { transform: translateY(-100vh); opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Glitch horizontal shift */
+@keyframes glitch {
+  0%   { clip-path: inset(40% 0 61% 0); transform: translate(-2px, 0); }
+  20%  { clip-path: inset(92% 0 1% 0);  transform: translate(1px, 0); }
+  40%  { clip-path: inset(43% 0 1% 0);  transform: translate(0px, 0); }
+  60%  { clip-path: inset(25% 0 58% 0); transform: translate(3px, 0); }
+  80%  { clip-path: inset(54% 0 7% 0);  transform: translate(-2px, 0); }
+  100% { clip-path: inset(58% 0 43% 0); transform: translate(2px, 0); }
+}
+
+/* Pulse glow */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(78, 154, 6, 0.4); }
+  50%       { box-shadow: 0 0 24px rgba(78, 154, 6, 0.9); }
+}
+
+/* Sprite run cycle placeholder */
+@keyframes sprite-run {
+  0%   { background-position: 0 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* Screen wipe left-to-right */
+@keyframes wipe-right {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+
+/* Utility animation classes */
+.anim-blink       { animation: blink 1.0s step-end infinite; }
+.anim-fade-up     { animation: fade-up 0.4s var(--ease-out-expo) forwards; }
+.anim-crt-flicker { animation: crt-flicker 0.6s linear forwards; }
+.anim-crt-collapse{ animation: crt-collapse 0.5s var(--ease-in-expo) forwards; }
+.anim-pulse-glow  { animation: pulse-glow 2s ease-in-out infinite; }
+

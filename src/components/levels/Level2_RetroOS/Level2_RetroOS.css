@@ -1,0 +1,625 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Level 2 — The Origin (HarshOS 98)
+   Reference: Poolsuite.net
+   Palette:
+     Desktop:  #F2C4B8 (warm salmon pink)
+     Window:   #FFFFFF (clean white)
+     Titlebar: #E8E8E8 (light silver — Poolsuite compact style)
+     Borders:  #999 / #CCC
+     Accent:   #000 (black for bold elements)
+     Taskbar:  #D4D0C8 (classic Win98 silver)
+───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Loading Screen ─────────────────────────────────────────────────────────── */
+.l2-loader {
+  width: 100%;
+  height: 100dvh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.l2-loader__card {
+  border: 2px solid #000;
+  background: #F5F0E8;
+  padding: 40px 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 5px 5px 0 #666;
+  width: 90vw;
+  max-width: 380px;
+}
+
+.l2-loader__title {
+  font-family: 'Times New Roman', Georgia, serif;
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #000;
+  text-align: center;
+  width: 100%;
+  border-bottom: 2px solid #000;
+  padding-bottom: 12px;
+}
+
+.l2-loader__subtitle {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #444;
+  letter-spacing: 0.15em;
+  text-align: center;
+}
+
+.l2-loader__bar-track {
+  width: 100%;
+  height: 20px;
+  border: 2px solid #000;
+  background: #fff;
+  overflow: hidden;
+}
+
+.l2-loader__bar-fill {
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    #000 0px, #000 10px,
+    #555 10px, #555 14px
+  );
+  background-size: 14px 100%;
+  transition: width 0.06s linear;
+}
+
+.l2-loader__percent {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #000;
+  letter-spacing: 0.25em;
+}
+
+/* ── Root Desktop ───────────────────────────────────────────────────────────── */
+.l2 {
+  background-color: #F2C4B8;
+  width: 100%;
+  height: 100dvh;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Courier New', monospace;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Top Menu Bar ───────────────────────────────────────────────────────────── */
+.l2__menubar {
+  height: 22px;
+  background: #D4D0C8;
+  border-bottom: 1px solid #808080;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+.l2__menubar-left {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.l2__menubar-item {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: #000;
+  padding: 1px 6px;
+  cursor: default;
+}
+
+.l2__menubar-item:hover {
+  background: #000080;
+  color: #FFFFFF;
+}
+
+.l2__menubar-right {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: #000;
+  letter-spacing: 0.05em;
+}
+
+/* ── Desktop Area ───────────────────────────────────────────────────────────── */
+.l2__desktop-area {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Desktop Icons ──────────────────────────────────────────────────────────── */
+.l2__desktop-icons {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 1;
+}
+
+/* Each icon IS a Framer motion.div — draggable */
+.l2__icon-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 72px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.l2__icon-wrapper:hover .l2__icon-label {
+  background: #000080;
+  color: #fff;
+}
+
+.l2__icon-glyph {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.l2__icon-label {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #000;
+  text-align: center;
+  line-height: 1.3;
+  padding: 1px 2px;
+  word-break: break-word;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.8);
+}
+
+/* ── Recycle Bin — Fixed bottom right ───────────────────────────────────────── */
+.l2__recycle-bin-wrapper {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 72px;
+}
+
+.l2__recycle-bin-wrapper.l2__recycle-bin--hover {
+  filter: brightness(0.85) saturate(1.5);
+}
+
+.l2__recycle-label {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: #000;
+  text-align: center;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.8);
+  margin-top: 4px;
+}
+
+/* ── Window ─────────────────────────────────────────────────────────────────── */
+.l2__window {
+  position: absolute;
+  background-color: #FFFFFF;
+  border: 1px solid #999;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.25), inset 0 0 0 1px #fff;
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  max-width: 500px;
+  resize: both;
+}
+
+/* Active window — slightly stronger shadow */
+.l2__window--active {
+  box-shadow: 3px 3px 12px rgba(0,0,0,0.35), inset 0 0 0 1px #fff;
+}
+
+.l2__window-titlebar {
+  background: linear-gradient(180deg, #E8E8E8 0%, #D0D0D0 100%);
+  color: #000;
+  padding: 3px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #999;
+  cursor: grab;
+  flex-shrink: 0;
+  min-height: 24px;
+}
+
+.l2__window-titlebar:active { cursor: grabbing; }
+
+/* Active window has blue titlebar like Win98 */
+.l2__window--active .l2__window-titlebar {
+  background: linear-gradient(180deg, #0A246A 0%, #3A6EA5 100%);
+  color: #fff;
+}
+
+.l2__window-titlebar-left {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.l2__window-titlebar-left span {
+  font-family: 'Times New Roman', Georgia, serif;
+  font-size: 13px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.l2__window-controls {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+  margin-left: 4px;
+}
+
+.l2__window-btn {
+  width: 16px;
+  height: 14px;
+  background: #C0C0C0;
+  border-top: 1px solid #FFFFFF;
+  border-left: 1px solid #FFFFFF;
+  border-bottom: 1px solid #404040;
+  border-right: 1px solid #404040;
+  color: #000;
+  font-size: 10px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  font-family: 'Arial', sans-serif;
+}
+
+.l2__window-btn:active {
+  border-top: 1px solid #404040;
+  border-left: 1px solid #404040;
+  border-bottom: 1px solid #FFFFFF;
+  border-right: 1px solid #FFFFFF;
+}
+
+/* Poolsuite-style window menu bar */
+.l2__window-menubar {
+  background: #F0F0F0;
+  padding: 0 4px;
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #CCC;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.l2__window-menu-item {
+  padding: 2px 10px;
+  color: #000;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.l2__window-menu-item:hover {
+  background: #000080;
+  color: #FFFFFF;
+}
+
+/* ── Window Content: Poolsuite parchment feel ───────────────────────────────── */
+.l2__window-content {
+  padding: 12px;
+  background-color: #F5F0E8; /* Soft retro parchment cream */
+  color: #000;
+  font-size: 13px;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 120px;
+}
+
+.l2__window-content::-webkit-scrollbar { width: 14px; background: #D4D0C8; }
+.l2__window-content::-webkit-scrollbar-thumb {
+  background: #C0C0C0;
+  border-top: 1px solid #FFFFFF;
+  border-left: 1px solid #FFFFFF;
+  border-bottom: 1px solid #606060;
+  border-right: 1px solid #606060;
+}
+
+.l2__section-title {
+  font-family: 'Times New Roman', Georgia, serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  border-bottom: 2px solid #000;
+  padding-bottom: 4px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.l2__text {
+  font-family: 'Times New Roman', Georgia, serif;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #1a1a1a;
+}
+
+/* ── Content Blocks: Separate Text/Media Box Layouts (Poolsuite style) ──────── */
+.l2__content-layout {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.l2__content-layout--landscape {
+  flex-direction: column;
+}
+
+.l2__content-layout--portrait {
+  flex-direction: row;
+}
+
+@media (max-width: 600px) {
+  .l2__content-layout--portrait {
+    flex-direction: column;
+  }
+}
+
+.l2__text-box {
+  background: #FFFFFF;
+  border: 1px solid #CCC;
+  border-top: 1px solid #999;
+  border-left: 1px solid #999;
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.l2__image-container {
+  position: relative;
+  border: 1px solid #CCC;
+  border-top: 1px solid #999;
+  border-left: 1px solid #999;
+  background: #000000; /* Retro screen bezel black */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.l2__content-layout--landscape .l2__image-container {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  align-self: center;
+}
+
+.l2__content-layout--portrait .l2__image-container {
+  width: auto;
+  max-width: 100%;
+  flex-shrink: 0;
+  height: auto;
+  align-self: flex-start;
+}
+
+@media (max-width: 600px) {
+  .l2__content-layout--portrait .l2__image-container {
+    align-self: center;
+  }
+}
+
+.l2__image {
+  display: block;
+}
+
+.l2__content-layout--landscape .l2__image {
+  max-width: 100%;
+  height: auto;
+  max-height: 250px;
+}
+
+.l2__content-layout--portrait .l2__image {
+  height: 290px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.l2__image-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* CRT Dot-matrix & Scanline Effect matching Poolsuite.net UI */
+  background: 
+    radial-gradient(circle, rgba(0, 0, 0, 0.1) 0.8px, transparent 0.8px),
+    linear-gradient(rgba(0, 0, 0, 0.06) 50%, transparent 50%);
+  background-size: 3px 3px, 100% 4px;
+}
+
+.l2__cgpa-list {
+  background: #FFFFFF;
+  border: 1px solid #CCC;
+  overflow-y: auto;
+  max-height: 160px;
+}
+
+.l2__cgpa-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 10px;
+  border-bottom: 1px solid #EEE;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+}
+
+.l2__cgpa-item:nth-child(odd) { background: #F8F6F4; }
+.l2__cgpa-sem { color: #000080; font-weight: bold; }
+.l2__cgpa-grade { color: #222; }
+
+.l2__note {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: #888;
+  font-style: italic;
+  text-align: right;
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────────────── */
+.l2__btn {
+  background: #C0C0C0;
+  border-top: 1px solid #FFFFFF;
+  border-left: 1px solid #FFFFFF;
+  border-bottom: 1px solid #404040;
+  border-right: 1px solid #404040;
+  color: #000;
+  padding: 4px 18px;
+  cursor: pointer;
+  font-family: 'Times New Roman', Georgia, serif;
+  font-size: 13px;
+  min-width: 72px;
+}
+
+.l2__btn:active {
+  border-top: 1px solid #404040;
+  border-left: 1px solid #404040;
+  border-bottom: 1px solid #FFFFFF;
+  border-right: 1px solid #FFFFFF;
+  padding: 5px 17px 3px 19px;
+}
+
+.l2__btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+/* ── Installer ──────────────────────────────────────────────────────────────── */
+.l2__installer-text {
+  font-family: 'Times New Roman', Georgia, serif;
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.65;
+}
+
+/* ── Recycle Bin Alert Overlay ──────────────────────────────────────────────── */
+.l2__alert-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 8000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Taskbar (bottom) ───────────────────────────────────────────────────────── */
+.l2__taskbar {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba(192, 192, 192, 0.95);
+  border: 2px solid #000;
+  box-shadow: inset -2px -2px #0a0a0a, inset 2px 2px #dfdfdf, inset -4px -4px grey, inset 4px 4px #fff, 0 8px 24px rgba(0,0,0,0.5);
+  z-index: 100;
+  border-radius: 2px;
+}
+
+.l2__taskbar-btn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #C0C0C0;
+  border-top: 2px solid #FFFFFF;
+  border-left: 2px solid #FFFFFF;
+  border-bottom: 2px solid #404040;
+  border-right: 2px solid #404040;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.1s;
+}
+
+.l2__taskbar-btn:active {
+  transform: scale(0.95);
+}
+
+.l2__taskbar-btn--active {
+  border-top: 2px solid #404040;
+  border-left: 2px solid #404040;
+  border-bottom: 2px solid #FFFFFF;
+  border-right: 2px solid #FFFFFF;
+  background: #A0A0A0;
+}
+
+.l2__taskbar-icon-wrap {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.l2__taskbar-icon-wrap svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Shutting Down Overlay ──────────────────────────────────────────────────── */
+.l2__shutdown-overlay {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  letter-spacing: 0.3em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.8s ease-in-out;
+}
+
+.l2__shutdown-overlay--active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+@media (max-width: 767px) {
+  .l2__desktop-icons { gap: 10px; }
+  .l2__window { min-width: 260px; max-width: 95vw; }
+}

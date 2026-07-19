@@ -1,0 +1,64 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   CSS DESIGN TOKENS  —  harsh-portfolio
+   Canonical source: docs/ui_system.md
+───────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Global Background ──────────────────────────────────────────────────── */
+  --bg-void:        #050505;   /* absolute darkest */
+  --bg-base:        #080808;   /* primary surface */
+  --bg-raised:      #0A0A0A;   /* slightly elevated surface */
+  --bg-overlay:     #0F0F0F;   /* modals / drawers */
+
+  /* ── Text ───────────────────────────────────────────────────────────────── */
+  --text-primary:   #E8E8E8;
+  --text-secondary: #A0A0A0;
+  --text-muted:     #4A4A4A;
+  --text-dim:       #282828;
+
+  /* ── Accent Palette ─────────────────────────────────────────────────────── */
+  --accent-green:   #4E9A06;   /* terminal prompt */
+  --accent-blue:    #3465A4;   /* terminal directory */
+  --accent-cyan:    #00AAAA;   /* BIOS highlight */
+  --accent-yellow:  #FFFF55;   /* BIOS active */
+  --accent-white:   #FFFFFF;
+
+  /* ── Level-Specific Backgrounds ────────────────────────────────────────── */
+  --lvl0-bg:        #0C0C0C;
+  --lvl1-bg:        #0000AA;
+  --lvl2-bg:        #1a3a3a;   /* dark teal variant */
+  --lvl3-bg:        #141414;   /* midnight XP */
+  --lvl4-bg:        #050505;
+  --lvl5-bg:        #000000;
+
+  /* ── Typography ─────────────────────────────────────────────────────────── */
+  --font-mono:      'VT323', 'Courier New', monospace;
+  --font-system:    'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-display:   'Inter', 'Helvetica Neue', Arial, sans-serif;
+
+  /* ── Spacing Scale (8px base grid) ─────────────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  /* ── Z-Index Layers ─────────────────────────────────────────────────────── */
+  --z-base:        1;
+  --z-raised:      10;
+  --z-modal:       100;
+  --z-companion:   900;
+  --z-pause-menu:  1000;
+
+  /* ── Transitions ────────────────────────────────────────────────────────── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-expo:  cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 120ms;
+  --duration-base: 260ms;
+  --duration-slow: 480ms;
+}

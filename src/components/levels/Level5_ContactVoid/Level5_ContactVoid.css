@@ -1,0 +1,131 @@
+.l5 {
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.l5__hint {
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  color: #FFFFFF;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.l5__card-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.l5__card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 60px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.l5__card-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: #666;
+  background: transparent;
+  border: none;
+  outline: none;
+  text-transform: lowercase;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.l5__card-close:hover {
+  color: #FFFFFF;
+}
+
+.l5__card-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  color: #FFFFFF;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.l5__card-links {
+  display: flex;
+  gap: 32px;
+}
+
+.l5__link {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: #888;
+  text-decoration: none;
+  letter-spacing: 0.2em;
+  text-transform: lowercase;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.l5__link:hover {
+  color: #FFFFFF;
+}
+
+.l5__link-primary {
+  margin-top: 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: #050505;
+  background: #FFFFFF;
+  padding: 16px 32px;
+  text-decoration: none;
+  letter-spacing: 0.2em;
+  text-transform: lowercase;
+  transition: transform 0.3s ease, background 0.3s ease;
+  white-space: nowrap;
+}
+
+.l5__link-primary:hover {
+  transform: translateY(-2px);
+  background: #EEEEEE;
+}
+
+@media (max-width: 767px) {
+  .l5__card {
+    padding: 40px 24px;
+    width: 90vw;
+    gap: 32px;
+  }
+  .l5__card-close {
+    top: 16px;
+    right: 16px;
+  }
+  .l5__card-title {
+    font-size: 24px;
+    padding-top: 10px;
+  }
+  .l5__card-links {
+    gap: 12px;
+  }
+  .l5__link {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+}

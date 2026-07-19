@@ -1,0 +1,286 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Level 1 — The Spark (BIOS TUI)
+───────────────────────────────────────────────────────────────────────────── */
+
+.l1 {
+  background-color: #0000AA;
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Courier New', monospace; /* Monospace is critical for ASCII */
+  font-size: clamp(12px, 1.1vw, 16px);
+  line-height: 1.2;
+  color: #AAAAAA;
+  overflow: hidden;
+  position: relative;
+  padding: 16px;
+}
+
+/* ── CRT Overlay ────────────────────────────────────────────────────────────── */
+.l1::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ── ASCII Frame Component ──────────────────────────────────────────────────── */
+.ascii-frame {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.ascii-frame--fill {
+  flex: 1;
+}
+.ascii-row {
+  display: flex;
+  line-height: 1;
+  color: #AAAAAA;
+}
+.ascii-h {
+  flex: 1;
+  overflow: hidden;
+  white-space: pre;
+}
+.ascii-mid {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+.ascii-v {
+  width: 1ch;
+  overflow: hidden;
+  word-break: break-all;
+  line-height: 1;
+  flex-shrink: 0;
+  color: #AAAAAA;
+}
+.ascii-content {
+  flex: 1;
+  padding: 8px 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.ascii-content::-webkit-scrollbar {
+  width: 8px;
+}
+.ascii-content::-webkit-scrollbar-thumb {
+  background: #AAAAAA;
+}
+
+/* ── Layout ─────────────────────────────────────────────────────────────────── */
+.l1__layout {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  z-index: 2;
+  gap: 8px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 0;
+}
+
+.l1__header {
+  text-align: center;
+  color: #FFFF55;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.l1__main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+@media (min-width: 900px) {
+  .l1__main-grid {
+    grid-template-columns: 300px 1fr;
+  }
+}
+
+/* ── Menu Navigation ────────────────────────────────────────────────────────── */
+.l1__menu {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.l1__menu-item {
+  color: #AAAAAA;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: background-color 0.1s, color 0.1s;
+}
+
+.l1__menu-item:hover {
+  background-color: rgba(0, 170, 170, 0.3);
+}
+
+.l1__menu-item--active,
+.l1__menu-item--active:hover {
+  background-color: #00AAAA;
+  color: #FFFF55;
+  font-weight: bold;
+}
+
+/* ── Diagnostics Text ───────────────────────────────────────────────────────── */
+.l1__stat-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 4px;
+}
+.l1__stat-label {
+  color: #00AAAA;
+  width: 18ch;
+  flex-shrink: 0;
+}
+.l1__stat-value {
+  color: #AAAAAA;
+}
+
+.l1__skills-group {
+  margin-top: 16px;
+}
+.l1__skills-label {
+  color: #00AAAA;
+  margin-bottom: 4px;
+  display: block;
+}
+.l1__skills-list {
+  color: #AAAAAA;
+  line-height: 1.4;
+}
+
+.l1__philosophy {
+  color: #FFFF55;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed #AAAAAA;
+  line-height: 1.5;
+}
+
+.l1__philosophy-full {
+  color: #FFFF55;
+  line-height: 1.6;
+  font-size: 1.1em;
+  padding: 16px;
+  text-align: justify;
+}
+
+/* ── Boot Logs ──────────────────────────────────────────────────────────────── */
+.l1__logs-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+}
+.l1__log-line {
+  color: #AAAAAA;
+}
+.l1__log-ok {
+  color: #00AAAA;
+}
+
+/* ── Action Bar ─────────────────────────────────────────────────────────────── */
+.l1__action-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 16px;
+  color: #0000AA;
+  background-color: #AAAAAA;
+  cursor: pointer;
+  z-index: 2;
+  font-weight: bold;
+  animation: blink 2s step-end infinite;
+  user-select: none;
+}
+.l1__action-bar:hover,
+.l1__action-bar:focus-visible {
+  background-color: #FFFF55;
+  color: #0000AA;
+  outline: none;
+}
+
+/* ── Modal ──────────────────────────────────────────────────────────────────── */
+.l1__modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 170, 0.85);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.l1__modal {
+  background: #0000AA;
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  box-shadow: 16px 16px 0px rgba(0,0,0,0.5);
+  max-width: 500px;
+  text-align: center;
+}
+
+.l1__modal-text {
+  color: #FFFF55;
+  font-size: 1.2em;
+}
+
+.l1__modal-actions {
+  display: flex;
+  gap: 32px;
+}
+
+.l1__modal-btn {
+  background: transparent;
+  border: none;
+  color: #AAAAAA;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1.2em;
+  padding: 4px 16px;
+}
+
+.l1__modal-btn--active,
+.l1__modal-btn:hover {
+  color: #FFFF55;
+  background: #0000AA;
+}
+
+/* ── Mobile adjustments ─────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .l1 {
+    padding: 8px;
+  }
+  .l1__stat-row {
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 8px;
+  }
+  .l1__action-bar {
+    padding: 12px;
+  }
+}

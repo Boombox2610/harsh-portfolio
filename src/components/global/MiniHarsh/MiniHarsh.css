@@ -1,0 +1,245 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   MiniHarsh — Global Companion Sprite
+   States: FOLLOW (green) | IDLE (blue) | ALERT (yellow) | EXHAUSTED (red)
+───────────────────────────────────────────────────────────────────────────── */
+
+/* ── Wrapper ─────────────────────────────────────────────────────────────── */
+.mh__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+}
+
+.mh__wrapper--clickable {
+  cursor: pointer !important;
+}
+
+/* ── Sprite Block ────────────────────────────────────────────────────────── */
+.mh__sprite {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  transition: background 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.15);
+}
+
+/* State Colors */
+.mh__sprite--follow {
+  background: #1a6b2e;
+  box-shadow: 0 0 8px rgba(26, 107, 46, 0.6), 0 0 0 1px rgba(255,255,255,0.1);
+}
+
+.mh__sprite--idle {
+  background: #1a3a6b;
+  transform: scaleY(0.88);
+  transform-origin: bottom;
+  box-shadow: 0 0 8px rgba(26, 58, 107, 0.6), 0 0 0 1px rgba(255,255,255,0.1);
+}
+
+.mh__sprite--alert {
+  background: #8b7a00;
+  animation: mh-alert-bounce 0.4s ease infinite alternate;
+  box-shadow: 0 0 12px rgba(255, 220, 0, 0.8), 0 0 0 1px rgba(255,255,255,0.2);
+}
+
+.mh__sprite--exhausted {
+  background: #6b1a1a;
+  animation: mh-exhausted-pulse 1.2s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(107, 26, 26, 0.6), 0 0 0 1px rgba(255,255,255,0.1);
+}
+
+/* ── Eyes ────────────────────────────────────────────────────────────────── */
+.mh__eyes {
+  position: absolute;
+  top: 6px;
+  display: flex;
+  gap: 5px;
+}
+
+.mh__eye {
+  width: 5px;
+  height: 5px;
+  background: #fff;
+  border-radius: 1px;
+}
+
+.mh__eye--sleepy {
+  height: 2px;
+  margin-top: 3px;
+  border-radius: 1px;
+}
+
+.mh__eye--wide {
+  width: 6px;
+  height: 7px;
+}
+
+.mh__eye--x {
+  width: auto;
+  height: auto;
+  background: transparent;
+  font-size: 8px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 1;
+}
+
+/* ── Alert Mark ──────────────────────────────────────────────────────────── */
+.mh__alert-mark {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  font-size: 14px;
+  color: #FFD600;
+  text-shadow: 0 0 6px rgba(255, 214, 0, 0.8);
+  animation: mh-exclaim 0.3s ease infinite alternate;
+}
+
+/* ── Exhausted Pant ──────────────────────────────────────────────────────── */
+.mh__pant {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+  animation: mh-pant 1.4s ease-in-out infinite;
+}
+
+/* ── Idle Tooltip ────────────────────────────────────────────────────────── */
+.mh__idle-tooltip {
+  font-family: 'Space Mono', 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  white-space: nowrap;
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ── Animations ──────────────────────────────────────────────────────────── */
+@keyframes mh-alert-bounce {
+  from { transform: translateY(0px); }
+  to   { transform: translateY(-4px); }
+}
+
+@keyframes mh-exhausted-pulse {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.6; }
+}
+
+@keyframes mh-exclaim {
+  from { transform: translateX(-50%) scale(1); }
+  to   { transform: translateX(-50%) scale(1.15); }
+}
+
+@keyframes mh-pant {
+  0%,100% { opacity: 0.4; letter-spacing: 0.1em; }
+  50%     { opacity: 0.9; letter-spacing: 0.3em; }
+}
+
+/* ── Fast Travel Menu Overlay ────────────────────────────────────────────── */
+.mh__menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 5, 5, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.mh__menu-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 48px 64px;
+  background: #080808;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  min-width: 320px;
+  max-width: 440px;
+  text-align: center;
+}
+
+.mh__menu-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  text-transform: lowercase;
+  color: #444;
+}
+
+.mh__menu-title {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  margin-top: -8px;
+}
+
+.mh__menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.mh__menu-item {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  color: #888;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  text-align: left;
+  transition: color 0.2s, padding-left 0.2s;
+  cursor: pointer;
+}
+
+.mh__menu-item:hover {
+  color: #FFFFFF;
+  padding-left: 8px;
+}
+
+.mh__menu-item:last-child {
+  border-bottom: none;
+}
+
+.mh__menu-close {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: #555;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: color 0.2s;
+  margin-top: 8px;
+}
+
+.mh__menu-close:hover {
+  color: #FFFFFF;
+}

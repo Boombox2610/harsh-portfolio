@@ -1,0 +1,46 @@
+.screensaver-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.screensaver-overlay canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.screensaver-text {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  color: #FFF;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.anim-fade-in {
+  animation: fade-in 1s ease-out forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.blink {
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.8; }
+}

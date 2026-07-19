@@ -89,3 +89,11 @@ gdsc age
 each age takeaway
 image
 summary of all - spinal chord
+
+tech stack big
+gemini video for Jio
+window xp
+  bigger 
+  takeaway
+
+agentic ai cert and insert

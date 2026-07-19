@@ -1,0 +1,27 @@
+/* ── Bracket Cursor ─────────────────────────────────────────────────────────── */
+.bracket-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+.bracket-cursor-corner {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-color: #FFFFFF;
+  border-style: solid;
+  border-width: 0;
+}
+
+.bracket-cursor-corner--tl { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
+.bracket-cursor-corner--tr { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
+.bracket-cursor-corner--bl { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
+.bracket-cursor-corner--br { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
+
+@media (max-width: 767px) {
+  .bracket-cursor { display: none; }
+}

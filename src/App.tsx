@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { usePortfolioStore } from './store/usePortfolioStore';
 import MiniHarsh from './components/global/MiniHarsh';
+import InitScreen from './components/levels/InitScreen/InitScreen';
 import './styles/global.css';
 
 // ── Lazy-load each level to keep the initial bundle minimal ─────────────────
@@ -56,6 +57,11 @@ const LevelFallback: React.FC = () => (
  */
 const App: React.FC = () => {
   const currentLevel = usePortfolioStore((s) => s.currentLevel);
+  const hasSelectedMode = usePortfolioStore((s) => s.hasSelectedMode);
+
+  if (!hasSelectedMode) {
+    return <InitScreen />;
+  }
 
   return (
     <>

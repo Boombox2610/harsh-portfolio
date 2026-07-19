@@ -4,6 +4,12 @@ export type Level = 0 | 1 | 2 | 3 | 4 | 5;
 export type MiniHarshState = 'FOLLOW' | 'IDLE' | 'EXHAUSTED' | 'ALERT';
 
 interface PortfolioState {
+  // ─── Entry Modes ─────────────────────────────────────────────────────────────
+  hasSelectedMode: boolean;
+  setHasSelectedMode: (selected: boolean) => void;
+  isCreativeMode: boolean;
+  setIsCreativeMode: (creative: boolean) => void;
+
   // ─── Level Navigation ────────────────────────────────────────────────────────
   currentLevel: Level;
   setLevel: (level: Level) => void;
@@ -26,6 +32,11 @@ interface PortfolioState {
 }
 
 export const usePortfolioStore = create<PortfolioState>((set) => ({
+  hasSelectedMode: false,
+  setHasSelectedMode: (selected) => set({ hasSelectedMode: selected }),
+  isCreativeMode: false,
+  setIsCreativeMode: (creative) => set({ isCreativeMode: creative }),
+
   // Default entry point is Level 0 (Terminal)
   currentLevel: 0,
   setLevel: (level) => set({ currentLevel: level }),
@@ -42,3 +53,5 @@ export const usePortfolioStore = create<PortfolioState>((set) => ({
   isContactCardOpen: false,
   setIsContactCardOpen: (open) => set({ isContactCardOpen: open }),
 }));
+
+// Forced update to reload IDE TS server

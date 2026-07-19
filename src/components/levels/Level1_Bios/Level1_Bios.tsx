@@ -54,6 +54,7 @@ const EARLY_LOGS = [
   "Cracking first Hackathon...",
   "Making Award Winning Projects...",
   "Deploying MicroServices...",
+  "Building Drones...",
   "Interned at Jio Platforms..."
 ];
 
@@ -66,6 +67,7 @@ const MENU_ITEMS = [
 // ─── Component ───────────────────────────────────────────────────────────────
 const Level1_Bios: React.FC = () => {
   const setLevel = usePortfolioStore((s) => s.setLevel);
+  const isCreativeMode = usePortfolioStore((s) => s.isCreativeMode);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [logs, setLogs] = useState<string[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -99,7 +101,7 @@ const Level1_Bios: React.FC = () => {
   useEffect(() => {
     if (showModal && modalSelection === 'Y') {
       const transitionTimer = setTimeout(() => {
-        setLevel(2);
+        setLevel(isCreativeMode ? 4 : 2);
       }, 1500);
       return () => clearTimeout(transitionTimer);
     }
@@ -113,7 +115,7 @@ const Level1_Bios: React.FC = () => {
           setModalSelection((prev) => (prev === 'Y' ? 'N' : 'Y'));
         } else if (e.key === 'Enter') {
           // Enter is the ONLY key that executes the transition
-          if (modalSelection === 'Y') setLevel(2);
+          if (modalSelection === 'Y') setLevel(isCreativeMode ? 4 : 2);
           else setShowModal(false);
         } else if (e.key === 'Escape') {
           // Escape always cancels
@@ -195,7 +197,7 @@ const Level1_Bios: React.FC = () => {
                 <div className="l1__skills-group">
                   <span className="l1__skills-label">SECONDARY_SKILLS:</span>
                   <span className="l1__skills-list">
-                    Team Leadership, Project Planning, Public Speaking, Teamwork, Collaboration, Event Logistics, Event Management, Design Team, Creative Content Creation.
+                    Team Leadership, Project Planning, Teamwork, Collaboration, Event Logistics, Event Management, Design Team, Creative Content Creation.
                   </span>
                 </div>
 

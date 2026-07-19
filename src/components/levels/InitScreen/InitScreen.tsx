@@ -20,14 +20,14 @@ const CARD_STRIDE = isMobile ? 500 : 1200;
 const CarouselCard: React.FC<{
   card: typeof CARDS[0];
   index: number;
-  dragX: any;
+  dragY: any;
   isSelected: boolean;
   onSelect: () => void;
-}> = ({ card, index, dragX, isSelected, onSelect }) => {
+}> = ({ card, index, dragY, isSelected, onSelect }) => {
   // cardOffset = how far THIS card is from the visual center.
-  // dragX moves the whole container, but each card is placed at index * CARD_STRIDE inside it.
-  // So when dragX = -index * CARD_STRIDE, this card is centered (offset = 0).
-  const cardOffset = useTransform(dragX, (dx: number) => dx + index * CARD_STRIDE);
+  // dragY moves the whole container, but each card is placed at index * CARD_STRIDE inside it.
+  // So when dragY = -index * CARD_STRIDE, this card is centered (offset = 0).
+  const cardOffset = useTransform(dragY, (dy: number) => dy + index * CARD_STRIDE);
 
   // 5-point non-linear input range (2 strides in either direction)
   const S = CARD_STRIDE;
@@ -87,16 +87,16 @@ const CarouselCard: React.FC<{
 };
 
 const StoryCarousel: React.FC<{ isActive: boolean }> = ({ isActive }) => {
-  const dragX = useMotionValue(0);
+  const dragY = useMotionValue(0);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Parallax Reactive Tech Spine Physics
-  const spineRotateY = useTransform(dragX, [-2000, 2000], [-180, 180]);
-  const spineTranslateY = useTransform(dragX, [-2000, 2000], [-200, 200]);
+  const spineRotateY = useTransform(dragY, [-2000, 2000], [-180, 180]);
+  const spineTranslateY = useTransform(dragY, [-2000, 2000], [-200, 200]);
 
-  // Inverse X to lock the visual layer while the drag layer moves
-  const inverseX = useTransform(dragX, (v) => -v);
+  // Inverse Y to lock the visual layer while the drag layer moves
+  const inverseY = useTransform(dragY, (v) => -v);
 
   const setHasSelectedMode = usePortfolioStore((s) => s.setHasSelectedMode);
   const setLevel = usePortfolioStore((s) => s.setLevel);
@@ -112,7 +112,7 @@ const StoryCarousel: React.FC<{ isActive: boolean }> = ({ isActive }) => {
     if (!isActive || selectedCard !== null) return;
     
     // Auto-center the clicked card smoothly
-    animate(dragX, index * -CARD_STRIDE, { type: 'spring', stiffness: 300, damping: 30 });
+    animate(dragY, index * -CARD_STRIDE, { type: 'spring', stiffness: 300, damping: 30 });
     setSelectedCard(index);
 
     setTimeout(() => {
@@ -123,11 +123,11 @@ const StoryCarousel: React.FC<{ isActive: boolean }> = ({ isActive }) => {
 
   const handleWheel = (e: React.WheelEvent) => {
     if (!isActive || selectedCard !== null || isLoading) return;
-    const currentX = dragX.get();
-    // Scroll speed multiplier mapping vertical scroll to horizontal drag
+    const currentY = dragY.get();
+    // Scroll speed multiplier mapping vertical scroll to vertical drag
     const speed = 1.5; 
-    const newX = Math.max(-(CARDS.length - 1) * CARD_STRIDE, Math.min(0, currentX - e.deltaY * speed));
-    dragX.set(newX);
+    const newY = Math.max(-(CARDS.length - 1) * CARD_STRIDE, Math.min(0, currentY - e.deltaY * speed));
+    dragY.set(newY);
   };
 
   if (!isActive) return null;
@@ -157,24 +157,25 @@ const StoryCarousel: React.FC<{ isActive: boolean }> = ({ isActive }) => {
       )}
 
       {/* Draggable Carousel with Inverse Layer to lock visual center */}
+      {/* height dynamically calculated to ensure the container always covers the viewport no matter how far up it is dragged */}
       <motion.div
         className="init-screen__carousel"
-        drag="x"
-        dragConstraints={{ left: -(CARDS.length - 1) * CARD_STRIDE, right: 0 }}
+        drag="y"
+        dragConstraints={{ top: -((CARDS.length - 1) * CARD_STRIDE), bottom: 0 }}
         dragElastic={0.08}
         dragTransition={{ bounceStiffness: 300, bounceDamping: 40 }}
-        style={{ x: dragX }}
+        style={{ y: dragY, height: `calc(100vh + ${(CARDS.length - 1) * CARD_STRIDE}px)` }}
       >
         <motion.div 
           className="init-screen__carousel-inverse"
-          style={{ x: inverseX }}
+          style={{ y: inverseY }}
         >
           {CARDS.map((card, index) => (
             <CarouselCard 
               key={card.id}
               card={card}
               index={index}
-              dragX={dragX}
+              dragY={dragY}
               isSelected={selectedCard === index}
               onSelect={() => handleCardClick(card.targetLevel, index)}
             />

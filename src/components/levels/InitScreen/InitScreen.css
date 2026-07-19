@@ -155,9 +155,9 @@
 
 .init-screen__carousel {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100vw;
-  height: 100vh;
   z-index: 5;
   pointer-events: all;
   cursor: grab;
@@ -166,9 +166,10 @@
 
 .init-screen__carousel-inverse {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   transform-style: preserve-3d;
   pointer-events: none;
 }

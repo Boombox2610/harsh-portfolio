@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useDragControls } from 'framer-motion';
-import { usePortfolioStore, type Level } from '../../../store/usePortfolioStore';
+import { usePortfolioStore } from '../../../store/usePortfolioStore';
 import './Level3_WinXP.css';
 import WindowDropdown from '../../shared/WindowDropdown';
 import Screensaver from '../../shared/Screensaver';
@@ -525,7 +525,7 @@ const CloudMumWindow: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   );
 };
 
-const WhatcodeWindow: React.FC<{ onClose: () => void }> = ({ onClose }) => (
+const WhatcodeWindow: React.FC = () => (
   <>
     {/* Acrobat-style toolbar */}
     <div className="l3__acrobat-toolbar">

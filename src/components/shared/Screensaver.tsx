@@ -8,10 +8,10 @@ interface ScreensaverProps {
 const Screensaver: React.FC<ScreensaverProps> = ({ timeoutMs = 15000 }) => {
   const [isActive, setIsActive] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number>(0);
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
     const resetTimer = () => {
       setIsActive(false);
